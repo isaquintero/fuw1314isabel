@@ -1,0 +1,93 @@
+<html>
+<head>
+	<title>T&iacute;tulo del trabajo</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<div style='display:table-row; padding: 10px;'>
+  <div style='float: left; width=20%; padding:10px;'>
+  <img src='./files/logo.png'/>
+  </div>
+  <div style='float: left;padding:10px'>
+  <ul>
+    <li><b>M&oacute;dulo:</b> <i>Fundamentos de Hardware</i></li>
+    <li><b>T&iacute;tulo del trabajo</b> <i>Almacenamiento NAS</i></li>
+    <li><b>Componentes del grupo:</b> <i>Isabel Quintero Sánchez</i></li>
+    <li><b>Curso Acad&eacute;mico:</b> <i>2013/2014</i></li>
+    <li><b>Fecha de entrega:</b> <i>29 de Abril de 2014</i></li>
+  </ul>
+  </div>
+</div>
+<div style='float: clear;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;'>
+<a href='#bloque1'>Almacenamiento NAS</a> 
+</div>
+<h1><a id='bloque1'>Almacenamiento NAS</a></h1>
+
+<p><b>Preparar la MV</b></p>
+	
+	<p><li>Creamos la MV en VBox, elegi MV del tipo FreeBSD. Como la ISO es x86 elegimos de 32 bits.</li>
+		<li>Además del disco duro virtual donde instalar FreeNAS, vamos a añadir a la MV
+		2 discos más de 2GB cada uno, para crear el volumen de almacenamiento del NAS.</li>
+		<li>Configurar MV con la red en modo puente. Para que al terminar podamos
+		 acceder al NAS desde cualquier equipo de nuestra red.</li></p>
+		<img border="2px" src="./files/1.png"/>
+		<img border="2px" src="./files/9.png"/>
+		
+<p><b>Instalar FreeNAS</b></p>
+
+	<p><li>Descargamos la ISO de la página del departamento y comenzamos con la instalación.</li>
+		<img border="2px" src="./files/2.png"/>
+		<li>Escogemos la tercera opción <i>"ada0"</i>y seguimos los pasos hasta que nos salga la opción
+		de reiniciar el sistema.</li></p>
+		<img border="2px" src="./files/3.png"/>
+		<p><img border="2px" src="./files/4.png"/></p>
+		
+		
+<p><b>Primera configuración de FreeNAS</b></p>
+
+	<p>Al quitar el disco, volvemos a encender el sistema y nos encontramos el menú de inicio.</p>
+	<img border="2px" src="./files/5.png"/>
+
+	<p>Empezamos con la configuración de red pulsando el número 1(IP, máscara de red).</p>
+	<img border="2px" src="./files/10.png"/>
+	
+	<p>Pulsamos 4 para configurar la puerta de enlace.</p>
+	<img border="2px" src="./files/7.png"/>
+	
+	<p>Pulsamos 5 para configurar (static Routes).</p>
+	<img border="2px" src="./files/8.png"/>
+	
+	<p>Pulsamos 6 para configurar el servidor DNS.</p>
+	<img border="2px" src="./files/6.png"/>
+
+	<p>Para comprobar que ha funcionado correctamente la configuración entramos desde un navegador con la IP de FreeNas 
+	y hacemos un ping para confirmar.</p>
+	<img border="2px" src="./files/12.png"/>
+	<img border="2px" src="./files/11.png"/>
+<p><b>Crear un volumen</b></p>
+
+	<p>Vamos a crear un VOLUMEN a partir de los dos discos creados de 2GB,
+    elegimos la opción mirror (RAID1) con los dos discos y el montaje en <i>"/mnt/volumen1"</i>, con 
+    anterioridad debemos crear el directorio <i>"/mnt/volumen1"</i>, para montar el volumen.
+</p>
+	<img border="2px" src="./files/capturaIsa.png"/>
+
+	<p>Activamos el servicio de carpetas compartidas <i>"CIFS"</i></p>
+	<img border="2px" src="./files/capturaIsa2.png"/>
+	
+	<p>Entramos en la Shell y ejecutamos los siguientes comandos:</p>
+	<p><b>df -hT</b></p>
+	<img border="2px" src="./files/df.png"/>
+	<p><b>"mkdir /mnt/volumen1/public";"chmod 777 /mnt/volumen1/public"</b></p>
+	<img border="2px" src="./files/comandos.png"/>
+	
+	<p>Creamos un recurso compartido CIFS. Path a "/mnt/volumen1/public".</p>
+	<img border="2px" src="./files/capturaIsa3.png"/>
+	
+<p><b>Comprobar desde cliente</b></p>
+
+	<p>Probamos que podemos acceder a dicho recurso compartido SMB/CIFS, desde otro 
+	equipo de la red. Por ejemplo, usando un cliente Windows.</p>
+	<img border="2px" src="./files/comprobar.png"/>
+</body>
+</html>
