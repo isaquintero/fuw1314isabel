@@ -1,0 +1,100 @@
+<html>
+<head>
+	<title>T&iacute;tulo del trabajo</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<div style='display:table-row; padding: 10px;'>
+  <div style='float: left; width=20%; padding:10px;'>
+  <img src='./files/logo.png'/>
+  </div>
+  <div style='float: left;padding:10px'>
+  <ul>
+    <li><b>M&oacute;dulo:</b> <i>Fundamentos de Hardware</i></li>
+    <li><b>T&iacute;tulo del trabajo</b> <i>Control Remoto</i></li>
+    <li><b>Componentes del grupo:</b> <i>Isabel Quintero Sánchez</i></li>
+    <li><b>Curso Acad&eacute;mico:</b> <i>2013/2014</i></li>
+    <li><b>Fecha de entrega:</b> <i>20 de Mayo de 2014</i></li>
+  </ul>
+  </div>
+</div>
+<div style='float: clear;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;'>
+<a href='#bloque1'>iTalc Master</a> | <a href='#bloque2'>Italc Slaves</a> 
+| <a href='#final'>Comprobación</a></div>
+
+<p>En esta práctica vamos a necesitar tres Máquinas Virtuales:
+<ol>
+<li>Italc Master: Debian7.</li>
+<li>Italc Slave: Windows</li>
+<li>Italc Slave: Debian7 Clonada.</li>
+
+</ol>
+</p>
+
+<h1><a id='bloque1'>iTalc Master</a></h1>
+
+<p>Instalamos iTalc Master (Maestro) en un equipo Debian7, que creará los ficheros:
+<ol>
+	<li>/etc/italc/keys/private/teacher/key<i>(fichero de clave privada)</i>.</li>
+	<li>/etc/italc/keys/public/teacher/key<i>(fichero de clave pública)</i>.</li>
+</ol>
+<img border="1px" src="./files/1.png"/>
+</p>
+
+<p>Como las claves anteriores no existen después de instalar el programa habrá que generarlas, para 
+crear las claves de iTalc ejecutamos el comando: <b>ica -createkeypair</b>.</p>
+<img border="1px" src="./files/2.png"/>
+
+<p>Creamos el grupo italc, y añadimos nuestro usuario "beatriz" (porque en este caso la compañera Beatriz me ha dejado su máquina
+,ya que Debian tarda mucho en instalarse) al grupo:</p>
+<img border="1px" src="./files/3.png"/>
+<img border="1px" src="./files/4.png"/>
+
+<p>Damos permisos al grupo italc, para tener acceso a las claves de italc con el comando: <b>chgrp -R italc keys</b>.</p>
+<img border="1px" src="./files/5.png"/>
+
+<p>Iniciamos manualmente el servicio con el comando: <b>/usr/bin/ica & </b>.</p>
+<img border="1px" src="./files/6.png"/>
+
+<p>Para que el servicio inicie automáticamente al iniciar sesión con el usuario "beatriz" tendremos que modificar el 
+fichero "/home/maul/.profile", añadiendo en la última fila lo siguiente: <b>/usr/bin/ica & </b>.</p>
+<img border="1px" src="./files/9.png"/>
+
+<h1><a id='bloque2'>Italc Slaves</a></h1>
+
+<p><b>Cliente Windows</b></p>
+
+<p>Instalamos la misma versión de Italc Master en el Windows, en el que tenemos que 
+copiar el fichero de clave pública del maestro para poder importarlo en los clientes. Lo hacemos mediante el pen drive: 
+Cogemos el fichero "key" de la rua <i>/etc/italc/keys/public/teacher</i>.</p>
+<img border="1px" src="./files/10.1.png"/>
+<img border="1px" src="./files/10.png"/>
+<p>Lo siguiente que hacemos es copiarla en la máquina de windows, cuando la instalación de Italc nos lo pida.
+<i>NOTA: debemos cambiar el nombre del fichero para que nos lo detecte ("italc_dsa_key.pub")</i>.</p>
+<img border="1px" src="./files/11.png"/>
+<img border="1px" src="./files/12.png"/>
+
+<p><b>Cliente GNU/Linux</b></p>
+
+<p>En esta parte de la práctica he utilizado el Debian7 clonado, he desinstalado el Italc Master e instalado el Italc Client
+del que no he podido sacar capturas porque me había dado muchos problemas hasta que finalmente lo conseguí. Al ser una MV clonada
+no hace falta hacer los pasos que me indica porque se me clonan del primer punto de la práctica. Lo único que debo hacer es 
+iniciar el sistema con el comando: <b>/usr/bin/ica & </b>.</p>
+
+<h1><a id='final'>Comprobación</a></h1>
+
+<p>Finalmente abrimos el Italc Master en el Debian7 y unimos los otros dos Italc Slaves (Windows y Debian7 clonado)
+para poder establecer el control remoto. Para que funcione debemos cambiar las Ip's de las máquinas virtuales y que todas
+esten en "Modo Puente"</p>
+<img border="1px" src="./files/13.png"/>
+<img border="1px" src="./files/15.png"/>
+
+<p>Ip's de las Máquinas Virtuales:
+<ul type="square">
+<li>Debian7: 172.16.108.103</li>
+<li>Windows: 172.16.108.203</li>
+<li>Debian7 clonada: 172.16.108.53</li>
+</ul>
+</p>
+</body>
+</html>
